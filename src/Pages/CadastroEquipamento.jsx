@@ -1,17 +1,34 @@
+// src/pages/CadastroEquipamento.jsx
+
 import React from "react";
-import EquipamentoForm from "./EquipamentoForm";
+import { Card, Typography, Layout } from "antd";
+import EquipamentoForm from "../components/EquipamentoForm";
+import './CadastroEquipamento.css'; 
+
+const { Title } = Typography;
+const { Content } = Layout;
 
 const CadastroEquipamento = () => {
   const handleSubmit = (values) => {
-    console.log("Dados cadastrados:", values);
-    // aqui você pode integrar com API ou salvar no banco
+   
+    const formattedValues = {
+      ...values,
+      dataCompra: values.dataCompra ? values.dataCompra.format('YYYY-MM-DD') : null,
+    };
+    console.log("Dados para salvar:", formattedValues);
+   // banco de dados aqui
   };
 
   return (
-    <div style={{ maxWidth: 1200, margin: "0 auto", padding: 24 }}>
-      <h1>Cadastro de Equipamento</h1>
-      <EquipamentoForm onFinish={handleSubmit} />
-    </div>
+    
+    <Content className="site-layout-content">
+      <Card bordered={false} className="page-card">
+        <Title level={2} style={{ marginBottom: '24px', textAlign: 'center' }}>
+          Cadastro de Novo Equipamento
+        </Title>
+        <EquipamentoForm onFinish={handleSubmit} />
+      </Card>
+    </Content>
   );
 };
 

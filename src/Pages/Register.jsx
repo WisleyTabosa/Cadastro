@@ -82,7 +82,7 @@ import { useState } from 'react';
 import { Form, Input, Button, Upload, Typography, Card, message } from 'antd';
 import { UserOutlined, MailOutlined, LockOutlined, UploadOutlined } from '@ant-design/icons';
 import imageCompression from 'browser-image-compression';
-import AuthLayout from '../components/AuthLayout'; // Importe o layout
+import AuthLayout from '../components/AuthLayout';
 
 export default function Register() {
   const [imagem, setImagem] = useState(null);
@@ -99,11 +99,11 @@ export default function Register() {
     } catch (error) {
       message.error('Erro ao processar imagem.');
     }
-    return false; // Impede o upload automático do Ant Design
+    return false; 
   };
 
   const aoFinalizar = (valores) => {
-    // Sua lógica de envio aqui
+    
     console.log('Dados do formulário:', valores);
     console.log('Imagem processada:', imagem);
     message.success('Cadastro realizado com sucesso (simulado).');
@@ -112,7 +112,7 @@ export default function Register() {
   return (
     <AuthLayout>
       <Card
-        className="auth-card" // Aplica o estilo do CSS
+        className="auth-card" 
         bordered={false}
       >
         <Typography.Title level={2} style={{ textAlign: 'center', marginBottom: '24px' }}>

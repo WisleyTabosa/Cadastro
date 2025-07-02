@@ -46,19 +46,20 @@
 import { Button, Form, Input, Typography, Card } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
-import AuthLayout from '../components/AuthLayout'; // Importe o layout
+import AuthLayout from '../components/AuthLayout'; 
 
 export default function Login() {
   const navigate = useNavigate();
 
   const onFinish = (valores) => {
     console.log('Login com:', valores);
+    navigate('/equipamentoform')
   };
 
   return (
     <AuthLayout>
       <Card
-        className="auth-card" // Aplica o estilo do CSS
+        className="auth-card" 
         bordered={false}
       >
         <Typography.Title level={2} style={{ textAlign: 'center', marginBottom: '24px' }}>

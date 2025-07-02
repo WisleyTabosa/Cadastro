@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout, Row, Col, Typography } from 'antd';
-import './Auth.css'; // Vamos criar este arquivo de CSS a seguir
+import './Auth.css';
 
 const { Title, Text } = Typography;
 
@@ -9,7 +9,7 @@ export default function AuthLayout({ children }) {
     <Layout className="auth-layout">
       <Row justify="center" align="middle" style={{ minHeight: '100vh' }}>
         
-        {/* Coluna para o GIF (escondida em telas pequenas) */}
+        {}
         <Col lg={8} md={10} className="gif-container">
           <img 
             src="https://media.tenor.com/e085CmdjhFYAAAAC/%D0%BD%D0%B5%D1%80%D0%B2%D0%BD%D1%8B%D0%B5%D0%BA%D0%BB%D0%B5%D1%82%D0%BA%D0%B8-%D0%BD%D0%B5%D0%B9%D1%80%D0%BE%D0%BD%D1%8B.gif" 
@@ -24,9 +24,9 @@ export default function AuthLayout({ children }) {
           </Text>
         </Col>
         
-        {/* Coluna para o formulário (Login ou Cadastro) */}
+        {}
         <Col lg={8} md={12} sm={20} xs={24}>
-          {children} {/* Aqui é onde o seu formulário será renderizado */}
+          {children} {}
         </Col>
         
       </Row>

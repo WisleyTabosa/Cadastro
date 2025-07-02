@@ -1,3 +1,5 @@
+// src/components/EquipamentoForm.jsx
+
 import React from "react";
 import {
   Form,
@@ -7,7 +9,9 @@ import {
   DatePicker,
   Upload,
   InputNumber,
-  Divider,
+  Card,
+  Row,
+  Col,
 } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
@@ -16,6 +20,44 @@ const { Option } = Select;
 
 const EquipamentoForm = ({ initialValues = {}, onFinish, submitText = "Cadastrar Equipamento" }) => {
   const [form] = Form.useForm();
+  
+ 
+  const tipoEquipamento = Form.useWatch('tipoEquipamento', form);
+
+ 
+  const renderConfiguracaoFields = () => {
+    if (tipoEquipamento === 'computador' || tipoEquipamento === 'notebook') {
+      return (
+        <Card title="Configuração do Equipamento" bordered={false} style={{ marginBottom: 24 }}>
+          <Row gutter={16}>
+            <Col xs={24} sm={12}><Form.Item label="Nome do Computador" name="nomeComputador"><Input placeholder="Ex: TI-FINANCEIRO-01" /></Form.Item></Col>
+            <Col xs={24} sm={12}><Form.Item label="Placa Mãe" name="placaMae"><Input placeholder="Ex: Gigabyte B450M" /></Form.Item></Col>
+            <Col xs={24} sm={12}><Form.Item label="Processador" name="processador"><Input placeholder="Ex: Intel Core i5-10400" /></Form.Item></Col>
+            <Col xs={24} sm={12}><Form.Item label="Memória RAM" name="memoria"><Input placeholder="Ex: 16GB DDR4 3200MHz" /></Form.Item></Col>
+            <Col xs={24} sm={12}><Form.Item label="Armazenamento (HD/SSD)" name="hd"><Input placeholder="Ex: SSD 512GB NVMe" /></Form.Item></Col>
+            <Col xs={24} sm={12}><Form.Item label="Placa de Vídeo" name="placaVideo"><Input placeholder="Ex: NVIDIA GeForce GTX 1650" /></Form.Item></Col>
+            <Col xs={24} sm={12}><Form.Item label="Monitor" name="monitor"><Input placeholder="Ex: Dell 24' P2419H" /></Form.Item></Col>
+          </Row>
+        </Card>
+      );
+    }
+    return null;
+  };
+
+  
+  const renderImpressoraFields = () => {
+    if (tipoEquipamento === 'impressora') {
+      return (
+        <Card title="Itens Específicos da Impressora" bordered={false} style={{ marginBottom: 24 }}>
+          <Row gutter={16}>
+            <Col xs={24} sm={12}><Form.Item label="Tipo de Impressora" name="tipoImpressora"><Input placeholder="Ex: Laser Monocromática" /></Form.Item></Col>
+            <Col xs={24} sm={12}><Form.Item label="Possui Scanner?" name="scanner"><Select placeholder="Selecione"><Option value={true}>Sim</Option><Option value={false}>Não</Option></Select></Form.Item></Col>
+          </Row>
+        </Card>
+      );
+    }
+    return null;
+  };
 
   return (
     <Form
@@ -24,139 +66,54 @@ const EquipamentoForm = ({ initialValues = {}, onFinish, submitText = "Cadastrar
       onFinish={onFinish}
       initialValues={{ dataCompra: dayjs(), ...initialValues }}
     >
-      <Divider orientation="left">Informações Gerais</Divider>
-      <Form.Item label="Tipo de Equipamento" name="tipoEquipamento" rules={[{ required: true }]}>
-        <Select placeholder="Selecione o tipo">
-          <Option value="computador">Computador</Option>
-          <Option value="notebook">Notebook</Option>
-          <Option value="monitor">Monitor</Option>
-          <Option value="impressora">Impressora</Option>
-        </Select>
-      </Form.Item>
-      <Form.Item label="Fabricante" name="fabricante" rules={[{ required: true }]}>
-        <Select placeholder="Selecione o fabricante">
-          <Option value="dell">Dell</Option>
-          <Option value="hp">HP</Option>
-        </Select>
-      </Form.Item>
-      <Form.Item label="Etiqueta" name="etiqueta" rules={[{ required: true }]}>
-        <Input type="number" />
-      </Form.Item>
-      <Form.Item label="Número de Série" name="numeroSerie" rules={[{ required: true }]}>
-        <Input />
-      </Form.Item>
-      <Form.Item label="Modelo" name="modelo" rules={[{ required: true }]}>
-        <Select placeholder="Selecione o modelo">
-          <Option value="optiplex">Optiplex GX 370</Option>
-        </Select>
-      </Form.Item>
-      <Form.Item label="Local" name="local" rules={[{ required: true }]}>
-        <Select placeholder="Selecione o local">
-          <Option value="TI">Sala TI</Option>
-          <Option value="ADM">Administração</Option>
-        </Select>
-      </Form.Item>
-      <Form.Item label="Situação" name="situacao" rules={[{ required: true }]}>
-        <Select placeholder="Selecione a situação">
-          <Option value="operacional">Operacional</Option>
-          <Option value="sucateado">Sucateado</Option>
-        </Select>
-      </Form.Item>
+      <Card title="Informações Gerais" bordered={false} style={{ marginBottom: 24 }}>
+        <Row gutter={16}>
+          <Col xs={24} sm={12} md={8}>
+            <Form.Item label="Tipo de Equipamento" name="tipoEquipamento" rules={[{ required: true }]}>
+              <Select placeholder="Selecione o tipo">
+                <Option value="computador">Computador</Option>
+                <Option value="notebook">Notebook</Option>
+                <Option value="monitor">Monitor</Option>
+                <Option value="impressora">Impressora</Option>
+              </Select>
+            </Form.Item>
+          </Col>
+          <Col xs={24} sm={12} md={8}><Form.Item label="Fabricante" name="fabricante" rules={[{ required: true }]}><Input placeholder="Ex: Dell, HP, Lenovo" /></Form.Item></Col>
+          <Col xs={24} sm={12} md={8}><Form.Item label="Modelo" name="modelo" rules={[{ required: true }]}><Input placeholder="Ex: Optiplex 3080" /></Form.Item></Col>
+          <Col xs={24} sm={12} md={8}><Form.Item label="Patrimônio" name="patrimonio" rules={[{ required: true }]}><Input placeholder="Nº do patrimônio" /></Form.Item></Col>
+          <Col xs={24} sm={12} md={8}><Form.Item label="Número de Série" name="numeroSerie" rules={[{ required: true }]}><Input placeholder="S/N do equipamento" /></Form.Item></Col>
+          <Col xs={24} sm={12} md={8}>
+            <Form.Item label="Situação" name="situacao" rules={[{ required: true }]}>
+              <Select placeholder="Selecione a situação">
+                <Option value="operacional">Operacional</Option>
+                <Option value="manutencao">Em Manutenção</Option>
+                <Option value="backup">Backup</Option>
+                <Option value="sucateado">Sucateado</Option>
+              </Select>
+            </Form.Item>
+          </Col>
+          <Col xs={24} sm={12} md={8}><Form.Item label="Local" name="local" rules={[{ required: true }]}><Input placeholder="Ex: Sala TI, Almoxarifado" /></Form.Item></Col>
+        </Row>
+      </Card>
 
-      <Form.Item label="Anexar imagem" name="imagem">
-        <Upload beforeUpload={() => false} maxCount={1}>
-          <Button icon={<UploadOutlined />}>Selecionar Arquivo</Button>
-        </Upload>
-      </Form.Item>
+      {}
+      {renderConfiguracaoFields()}
+      {renderImpressoraFields()}
 
-      <Divider orientation="left">Configuração do Equipamento</Divider>
-      <Form.Item label="Nome do Computador" name="nomeComputador">
-        <Input />
-      </Form.Item>
-      <Form.Item label="Placa Mãe" name="placaMae">
-        <Select placeholder="Selecione o modelo">
-          <Option value="asrock">ASRock</Option>
-        </Select>
-      </Form.Item>
-      <Form.Item label="Processador" name="processador">
-        <Select placeholder="Selecione o modelo">
-          <Option value="i5">Intel i5</Option>
-        </Select>
-      </Form.Item>
-      <Form.Item label="Memória" name="memoria">
-        <Select placeholder="Selecione o modelo">
-          <Option value="8gb">8GB</Option>
-        </Select>
-      </Form.Item>
-      <Form.Item label="Placa de Vídeo" name="placaVideo">
-        <Select placeholder="Selecione o modelo" />
-      </Form.Item>
-      <Form.Item label="Placa de Rede" name="placaRede">
-        <Select placeholder="Selecione o modelo" />
-      </Form.Item>
-      <Form.Item label="Placa de Som" name="placaSom">
-        <Select placeholder="Selecione o modelo" />
-      </Form.Item>
-      <Form.Item label="Placa de Fax/Modem" name="placaFax">
-        <Select placeholder="Selecione o modelo" />
-      </Form.Item>
-      <Form.Item label="HD" name="hd">
-        <Select placeholder="Selecione o modelo" />
-      </Form.Item>
-      <Form.Item label="Gravador de CD" name="gravadorCd">
-        <Select placeholder="Selecione o modelo" />
-      </Form.Item>
-      <Form.Item label="CD-ROM" name="cdRom">
-        <Select placeholder="Selecione o modelo" />
-      </Form.Item>
-      <Form.Item label="DVD" name="dvd">
-        <Select placeholder="Selecione o modelo" />
-      </Form.Item>
-      <Form.Item label="Monitor" name="monitor">
-        <Select placeholder="Selecione o tamanho" />
-      </Form.Item>
-
-      <Divider orientation="left">Itens Específicos</Divider>
-      <Form.Item label="Tipo de Impressora" name="impressora">
-        <Select placeholder="Selecione o tipo" />
-      </Form.Item>
-      <Form.Item label="Scanner" name="scanner">
-        <Select placeholder="Selecione a resolução" />
-      </Form.Item>
-
-      <Divider orientation="left">Informações Contábeis</Divider>
-      <Form.Item label="Unidade" name="unidade">
-        <Select placeholder="Selecione a unidade" />
-      </Form.Item>
-      <Form.Item label="Centro de Custo" name="centroCusto">
-        <Select placeholder="Selecione o centro de custo" />
-      </Form.Item>
-      <Form.Item label="Fornecedor" name="fornecedor">
-        <Select placeholder="Selecione o fornecedor" />
-      </Form.Item>
-      <Form.Item label="Nota Fiscal" name="notaFiscal">
-        <Input />
-      </Form.Item>
-      <Form.Item label="Valor R$" name="valor">
-        <InputNumber min={0} style={{ width: "100%" }} />
-      </Form.Item>
-      <Form.Item label="Data da Compra" name="dataCompra">
-        <DatePicker format="DD/MM/YYYY" style={{ width: "100%" }} />
-      </Form.Item>
-      <Form.Item label="Tipo de Garantia" name="tipoGarantia">
-        <Select placeholder="Selecione o tipo" />
-      </Form.Item>
-      <Form.Item label="Tempo de Garantia" name="tempoGarantia">
-        <Select placeholder="Selecione o tempo" />
-      </Form.Item>
-
-      <Divider orientation="left">Comentário</Divider>
-      <Form.Item label="Comentário" name="comentario">
-        <Input.TextArea rows={4} />
-      </Form.Item>
+      <Card title="Informações Contábeis e Comentários" bordered={false} style={{ marginBottom: 24 }}>
+        <Row gutter={16}>
+          <Col xs={24} sm={12} md={8}><Form.Item label="Fornecedor" name="fornecedor"><Input placeholder="Nome do fornecedor" /></Form.Item></Col>
+          <Col xs={24} sm={12} md={8}><Form.Item label="Nota Fiscal" name="notaFiscal"><Input placeholder="Nº da nota fiscal" /></Form.Item></Col>
+          <Col xs={24} sm={12} md={8}><Form.Item label="Valor R$" name="valor"><InputNumber min={0} style={{ width: "100%" }} placeholder="Ex: 1500.00" /></Form.Item></Col>
+          <Col xs={24} sm={12} md={8}><Form.Item label="Data da Compra" name="dataCompra"><DatePicker format="DD/MM/YYYY" style={{ width: "100%" }} /></Form.Item></Col>
+          <Col xs={24} sm={12} md={8}><Form.Item label="Tempo de Garantia" name="tempoGarantia"><Input placeholder="Ex: 12 meses, 3 anos" /></Form.Item></Col>
+          <Col xs={24}><Form.Item label="Comentário" name="comentario"><Input.TextArea rows={4} placeholder="Adicione qualquer observação relevante aqui..." /></Form.Item></Col>
+          <Col xs={24}><Form.Item label="Anexar imagem" name="imagem"><Upload beforeUpload={() => false} maxCount={1}><Button icon={<UploadOutlined />}>Selecionar Arquivo</Button></Upload></Form.Item></Col>
+        </Row>
+      </Card>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" size="large">
           {submitText}
         </Button>
       </Form.Item>

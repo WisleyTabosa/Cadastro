@@ -1,8 +1,8 @@
 .auth-layout {
     background-image: 
-        /* O gradiente por cima da imagem, para o efeito de esmaecer */
+       
         linear-gradient(to bottom, rgba(255, 255, 255, 0.6), white),
-        /* A imagem de fundo */
+       
         url('https://images.unsplash.com/photo-1554147090-e1221a04a025?q=80&w=2070&auto=format&fit=crop');
     
     background-size: cover;
@@ -10,20 +10,19 @@
     background-repeat: no-repeat;
 }
 
-/* Card do formulário */
+
 .auth-card {
     width: 100%;
     max-width: 420px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     border-radius: 16px;
-    /* Efeito de vidro fosco */
     backdrop-filter: blur(5px);
     background-color: rgba(255, 255, 255, 0.85);
     border: 1px solid rgba(255, 255, 255, 0.5);
     padding: 16px;
 }
 
-/* Coluna do GIF */
+
 .gif-container {
     text-align: center;
     padding-right: 48px;
@@ -34,10 +33,10 @@
     border-radius: 16px;
 }
 
-/* Responsividade para telas menores */
+
 @media (max-width: 992px) {
     .gif-container {
-        display: none; /* Esconde o GIF */
+        display: none; 
     }
     .auth-card {
         margin: 0 16px;
