@@ -1,5 +1,5 @@
 
-// Dentro do arquivo: src/supabaseClient.js
+
 
 import { createClient } from '@supabase/supabase-js'
 
